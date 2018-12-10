@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import static model.CellState.ALIVE;
+
 
 /**
  * {@link Grid} instances represent the grid in <i>The Game of Life</i>.
@@ -105,11 +107,23 @@ public class Grid implements Iterable<Cell> {
 
     // TODO: Écrire une version correcte de cette méthode.
     private int countAliveNeighbours(int rowIndex, int columnIndex) {
-        return 0;
+        List<Cell> listOfNeighbours = getNeighbours(rowIndex, columnIndex);
+        int compteur = 0;
+        while(!listOfNeighbours.isEmpty()){
+            if(listOfNeighbours.iterator().next().isAlive()) {
+                compteur++;
+            }
+        }
+        return compteur;
     }
 
     // TODO: Écrire une version correcte de cette méthode.
     private CellState calculateNextState(int rowIndex, int columnIndex) {
+        if(!getCell(rowIndex, columnIndex).isAlive()){
+            if(countAliveNeighbours(rowIndex, columnIndex) >= 3){
+                return ALIVE;
+            }
+        }
         return null;
     }
 
